@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(45deg, #1870ed 0, #f18f88 100%);
+            font-family: 'Montserrat', 'sans-serif';
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .box-shadow {
+            box-shadow: 0px 0px 40px 5px rgb(0, 186, 207);
+        }
+
+        .box-shadow>h1 {
+            text-shadow: 2px 1px 8px rgb(170, 246, 255);
+        }
+
+        .btn-div>button:hover {
+            background-color: #533333;
+            box-shadow: 0px 0px 15px white;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-div w-full h-screen flex justify-center  items-center  ">
+        <div class="box-shadow w-[35vw]  py-3 rounded-lg">
+
+            <h1 class="text-6xl px-3">
+                <span id="hours">00 :</span>
+                <span id="minutes">00 :</span>
+                <span id="seconds">00 :</span>
+                <span id="milisec">000</span>
+            </h1>
+
+            <div class=" btn-div  text-white text-xl flex justify-evenly py-3 mt-3">
+                <button id="start" class="bg-[#605454] px-5 rounded-2xl duration-300">Start</button>
+                <button id="stop" class="bg-[#605454] px-5 rounded-2xl duration-300">Stop</button>
+                <button id="reset" class="bg-[#605454] px-5 rounded-2xl duration-300">Reset</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+
+        var hours = document.getElementById("hours");
+        var minutes = document.getElementById("minutes");
+        var seconds = document.getElementById("seconds");
+        var milisec = document.getElementById("milisec");
+        var start = document.getElementById('start')
+        var stop = document.getElementById('stop')
+        var reset = document.getElementById('reset')
+        var hrs = 0;
+        var mins = 0
+        var sec = 0;
+        var ms = 0;
+        var a;
+        start.addEventListener('click', () => {
+            a = setInterval(() => {
+                timestart()
+            }, 10)
+            function timestart() {
+                ms++;
+
+                if (ms > 100) {
+                    sec++;
+                    ms = 0
+                    seconds.innerHTML = sec
+                }
+                else if (ms < 100) {
+
+                    milisec.innerHTML = `:${ms}`
+                }
+                else if (sec > 60) {
+                    mins++;
+                    sec = 0
+                    minutes.innerHTML = mins
+                }
+
+                else if (mins > 60) {
+                    hrs++;
+                    hours.innerHTML = hrs
+                }
+            }
+
+        })
+
+        stop.addEventListener('click', () => {
+            clearInterval(a)
+
+        })
+        reset.addEventListener('click', () => {
+            clearInterval(a)
+            hrs = 0;
+            mins = 0;
+            sec = 0;
+            ms = 0;
+            milisec.innerHTML = `:${ms}`
+            seconds.innerHTML = `:${sec}`
+            minutes.innerHTML = `:${mins}`
+            hours.innerHTML = hrs
+
+        })
+    </script>
+</body>
+
+</html>
